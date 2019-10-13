@@ -1,0 +1,109 @@
+#top {
+    height:auto;
+}
+#bannr{
+	margin:auto;
+	align:center;
+}
+#banner .navbar {
+    min-height: 45px;
+	background: #FBFBFB;
+}
+
+.container-fluid {
+    min-height: 50px;
+}
+
+#banner .navbar-brand {
+    height: 45px;
+	line-height: 45px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#banner .nav>li {
+    height: 50px;
+}
+
+.title_link {
+    height: 45px;
+	line-height: 45px;
+    font-size: 16px;
+    font-weight: bold;
+    display: block;
+}
+
+.dropdown .dropdown-menu{
+	font-size: 16px;
+	padding-top: 15px;
+}
+#banner .nav a {
+    font-family: sans-serif;
+    color: #777;
+}
+
+#myCarousel {
+	margin: auto;
+    height: 500px;
+	width: 1300px;
+}
+
+.carousel-inner {
+    height: 500px;
+}
+
+.carousel-inner img {
+    height: 500px;
+    width: 1300px;
+}
+.item img{
+    max-width: 100%;
+    height:500px;
+}
+#contentbox{
+	width: 100%;
+	margin-top:20px;
+/* 	height:500px; */
+	margin:auto;
+}
+.card-header {height: 30px; float: right; margin: 20px; font-size: 18px; font-family: "微软雅黑"; background-color: #FFFFEE;}
+
+#footer_Carousel {height: 250px; margin:auto}
+.main-footer .widget{padding:0 30px; margin:auto}
+.widget{margin-bottom:35px}
+.widget .title{margin-top:0;padding-bottom:7px;border-bottom:1px solid #ebebeb;margin-bottom:21px;position:relative}
+.widget .title:after{content:"";width:90px;height:1px;background:#f4645f;position:absolute;left:0;bottom:-1px}
+.widget .recent-post .recent-single-post{border-bottom:1px dashed #ebebeb;padding-bottom:14px;margin-bottom:14px}
+.widget .recent-post .recent-single-post:last-child{margin-bottom:0}
+.widget .recent-post .recent-single-post .post-title{color:#505050;-webkit-transition:all .2s ease;-o-transition:all .2s ease;transition:all .2s ease}
+.widget .recent-post .recent-single-post .post-title:hover{color:#f4645f;text-decoration:none}
+.widget .recent-post .recent-single-post .date{color:#959595}
+.widget .tag-cloud a{border:1px solid #ebebeb;padding:2px 7px;color:#959595;line-height:1.5em;display:inline-block;margin:0 7px 7px 0;-webkit-transition:all .2s ease;-o-transition:all .2s ease;transition:all .2s ease}
+.widget .tag-cloud a:hover{color:#fff;border:1px solid #f4645f;text-decoration:none}
+.widget .social{padding:0;margin:0}
+.widget .social li{display:inline-block;margin:0 2px 5px 0;text-align:center}
+.widget .social li a i{width:35px;height:35px;line-height:35px;border:1px solid #ebebeb;color:#959595;-webkit-transition:all .2s;-o-transition:all .2s;transition:all .2s}
+.widget .social li:hover i{color:#fff;border:1px solid #f4645f}
+.widget .newsletter .input-group{margin-bottom:10px;display:block}
+.widget .newsletter .input-group .email,.widget .newsletter .input-group btn{width:100%}
+.widget .ad{text-align:center}
+.widget .ad img{max-width:100%}
+.cover{text-align:center;background:#fff;padding:35px;margin-bottom:35px}
+.cover .tag-name{margin-top:0}
+.cover .post-count{margin-top:7px;color:#959595}
+.cover .avatar{width:100px;height:100px;border-radius:50%}
+.cover .meta-info{color:#959595}
+.cover .meta-info span{margin:0 7px}
+.cover .meta-info span i{margin-right:7px}
+.cover .bio{margin-top:7px}
+.main-footer{background:#202020;padding:35px 0 0;color:#959595;margin:auto}
+.main-footer .widget .title{color:#fff;border-bottom:1px solid #303030}
+.main-footer .widget .tag-cloud a{border:1px solid #303030}
+.main-footer .widget .tag-cloud a:hover{border:1px solid }
+.main-footer .widget .friend-links a{border:none}
+.main-footer .widget .friend-links a:hover{border:none}
+.main-footer .widget .friend-links hr{margin:1em 0;border-top:1px dashed #303030}
+.main-footer .widget .recent-post .recent-single-post{border-bottom:1px dashed #303030}
+.main-footer .widget .recent-post .recent-single-post .post-title{color:#959595}
+.main-footer .widget .recent-post .recent-single-post .post-title:hover{color:#f4645f}
+.main-footer .widget .recent-post .recent-single-post .date{color:#505050}
