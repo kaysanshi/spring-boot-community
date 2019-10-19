@@ -3,7 +3,8 @@ package com.kayleoi.springbootcommunity.service;
 import com.kayleoi.springbootcommunity.dto.PaginationDTO;
 import com.kayleoi.springbootcommunity.dto.QuestionDTO;
 import com.kayleoi.springbootcommunity.model.Question;
-import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @Author kay三石
@@ -15,4 +16,8 @@ public interface QuestionService {
     void createOrUpdate(Question question);
 
     PaginationDTO list(String search, String tag, String sort, Integer page, Integer size);
+
+    List<QuestionDTO> selectRelated(QuestionDTO questionDTO);
+
+    void incView(Long questionId);
 }

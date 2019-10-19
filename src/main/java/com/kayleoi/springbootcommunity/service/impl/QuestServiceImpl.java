@@ -3,7 +3,6 @@ package com.kayleoi.springbootcommunity.service.impl;
 import com.kayleoi.springbootcommunity.dao.QuestionExtMapper;
 import com.kayleoi.springbootcommunity.dao.QuestionMapper;
 import com.kayleoi.springbootcommunity.dao.UserMapper;
-import com.kayleoi.springbootcommunity.dto.GithubUser;
 import com.kayleoi.springbootcommunity.dto.PaginationDTO;
 import com.kayleoi.springbootcommunity.dto.QuestionDTO;
 import com.kayleoi.springbootcommunity.dto.QuestionQueryDTO;
@@ -115,4 +114,38 @@ public class QuestServiceImpl implements QuestionService {
 
         paginationDTO.setData(questionDTOList);
         return paginationDTO;    }
+
+    @Override
+    public List <QuestionDTO> selectRelated(QuestionDTO questionDTO) {
+
+        if (StringUtils.isBlank(questionDTO.getTag())) {
+            return new ArrayList<>();
+        }
+        String[] tags = StringUtils.split(questionDTO.getTag(), ",");
+        String regexpTag = Arrays
+                .stream(tags)
+                .filter(StringUtils::isNotBlank)
+                .map(t -> t.replace("+", "").replace("*", "").replace("?", ""))
+                .filter(StringUtils::isNotBlank)
+                .collect(Collectors.joining("|"));
+        Question question = new Question();
+        question.setId(questionDTO.getId());
+        question.setTag(regexpTag);
+
+        List<Question> questions = questionExtMapper.selectRelated(question);
+        List<QuestionDTO> questionDTOS = questions.stream().map(q -> {
+            QuestionDTO questionDTO1 = new QuestionDTO();
+            BeanUtils.copyProperties(q, questionDTO1);
+            return questionDTO1;
+        }).collect(Collectors.toList());
+        return questionDTOS;
+    }
+
+    @Override
+    public void incView(Long questionId) {
+        Question question = new Question();
+        question.setId(questionId);
+        question.setViewCount(1);
+        questionExtMapper.incView(question);
+    }
 }

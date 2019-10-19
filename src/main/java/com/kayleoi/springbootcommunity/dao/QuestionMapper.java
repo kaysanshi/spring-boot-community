@@ -11,4 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface QuestionMapper {
 
     void insert(Question question);
+
+    Question selectByPrimaryKey(Long parentId);
 }

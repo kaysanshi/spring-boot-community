@@ -15,4 +15,10 @@ public interface QuestionExtMapper {
     Integer countBySearch(QuestionQueryDTO questionQueryDTO);
 
     List<Question> selectBySearch(QuestionQueryDTO questionQueryDTO);
+
+    List<Question> selectRelated(Question question);
+
+    void incView(Question question);
+
+    void incCommentCount(Question question);
 }
