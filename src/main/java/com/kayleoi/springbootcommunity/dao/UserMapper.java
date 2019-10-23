@@ -1,10 +1,11 @@
 package com.kayleoi.springbootcommunity.dao;
-import com.kayleoi.springbootcommunity.dto.GithubUser;
-import com.kayleoi.springbootcommunity.model.User;
 
-import org.apache.ibatis.annotations.Insert;
+import com.kayleoi.springbootcommunity.model.User;
+import com.kayleoi.springbootcommunity.model.UserExample;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * @Author kay三石
@@ -12,10 +13,16 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface UserMapper {
-    @Insert("insert into user(name,account_id,token,gmt_create,gmt_modify,bio,avatar_url) values(#{name},#{account_id},#{token},#{gmt_create},#{gmt_modify}, #{bio},#{avatarUrl})")
+    //@Insert("insert into user(name,account_id,token,gmt_create,gmt_modify,bio,avatar_url) values(#{name},#{account_id},#{token},#{gmt_create},#{gmt_modify}, #{bio},#{avatarUrl})")
     public void insert(User user);
     @Select("select * from user where token=#{token}")
     User findByToken(String token);
-    @Select("select * from user where Id=#{creator}")
+   // @Select("select * from user where Id=#{creator}")
     User selectByPrimaryKey(Long creator);
+
+    List<User> selectByExample(UserExample userExample);
+
+    void updateByExampleSelective(User updateUser, UserExample example);
+
+    void updateByPrimaryKeySelective(User updateUser);
 }

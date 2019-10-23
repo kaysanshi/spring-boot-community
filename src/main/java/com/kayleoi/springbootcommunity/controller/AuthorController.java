@@ -1,6 +1,5 @@
 package com.kayleoi.springbootcommunity.controller;
 
-import com.kayleoi.springbootcommunity.dao.UserMapper;
 import com.kayleoi.springbootcommunity.dto.AccessTokenDTO;
 import com.kayleoi.springbootcommunity.dto.GithubUser;
 import com.kayleoi.springbootcommunity.model.User;
@@ -10,7 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import com.kayleoi.springbootcommunity.service.UserService;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,7 +32,7 @@ public class AuthorController {
     GithubProvider githubProvider;
 
     @Autowired
-    UserMapper userMapper;
+    UserService userService;
 
     /**
      * 通过返回的code进行获取验证 然后进行返回到主页
@@ -63,11 +62,9 @@ public class AuthorController {
             user_model.setName(user.getName());
             user_model.setToken(UUID.randomUUID().toString());
             user_model.setAccount_id(String.valueOf(user.getId()));
-            user_model.setGmt_create(System.currentTimeMillis());
-            user_model.setGmt_modify(user_model.getGmt_create());
             user_model.setBio(user.getBio());
             user_model.setAvatarUrl(user.getAvatar_url());
-            userMapper.insert(user_model);
+            userService.saveaOrupdate(user_model);
             request.getSession().setAttribute("user", user);
 
             Cookie cookie = new Cookie("token", user_model.getToken());// token 设置为数据库中的token

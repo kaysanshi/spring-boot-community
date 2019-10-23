@@ -1,20 +1,15 @@
 package com.kayleoi.springbootcommunity.controller;
 
 import com.kayleoi.springbootcommunity.cache.TagCache;
-import com.kayleoi.springbootcommunity.dto.GithubUser;
 import com.kayleoi.springbootcommunity.dto.QuestionDTO;
 import com.kayleoi.springbootcommunity.model.Question;
 import com.kayleoi.springbootcommunity.model.User;
 import com.kayleoi.springbootcommunity.service.QuestionService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -23,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
  * @date:2019/10/7
  */
 @Controller
+@CrossOrigin
 public class PublishController {
     @Autowired
     private QuestionService questionService;

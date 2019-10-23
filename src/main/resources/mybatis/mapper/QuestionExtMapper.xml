@@ -15,8 +15,7 @@
 
     <update id="incView" parameterType="com.kayleoi.springbootcommunity.model.Question">
     update QUESTION
-    set
-    VIEW_COUNT = VIEW_COUNT + #{viewCount,jdbcType=INTEGER}
+    set VIEW_COUNT = VIEW_COUNT+#{viewCount}
     where id = #{id}
     </update>
 

@@ -7,6 +7,8 @@ import com.kayleoi.springbootcommunity.dto.PaginationDTO;
 import com.kayleoi.springbootcommunity.dto.QuestionDTO;
 import com.kayleoi.springbootcommunity.dto.QuestionQueryDTO;
 import com.kayleoi.springbootcommunity.enums.SortEnum;
+import com.kayleoi.springbootcommunity.exception.CustomizeErrorCode;
+import com.kayleoi.springbootcommunity.exception.CustomizeException;
 import com.kayleoi.springbootcommunity.model.Question;
 import com.kayleoi.springbootcommunity.model.User;
 import com.kayleoi.springbootcommunity.service.QuestionService;
@@ -37,12 +39,52 @@ public class QuestServiceImpl implements QuestionService {
 
     @Override
     public QuestionDTO getById(Long id) {
-        return null;
+        Question question = questionMapper.selectByPrimaryKey(id);
+        if (question == null) {
+            throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+        }
+        QuestionDTO questionDTO = new QuestionDTO();
+        BeanUtils.copyProperties(question, questionDTO);
+        User user = userMapper.selectByPrimaryKey(question.getCreator());
+        questionDTO.setUser(user);
+        return questionDTO;
     }
 
     @Override
     public void createOrUpdate(Question question) {
-        questionMapper.insert(question); //插入一条记录
+        if(question.getId()==null){
+            question.setGmtCreate(System.currentTimeMillis());
+            question.setGmtModified(question.getGmtCreate());
+            question.setViewCount(0);
+            question.setLikeCount(0);
+            question.setCommentCount(0);
+            questionMapper.insert(question);
+        }else{
+            // 不为null 时必须更新
+            Question dbQuestion =questionMapper.selectByPrimaryKey(question.getId());// 先获取到这个信息
+            if(dbQuestion==null){
+                // 异常处理
+                throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+
+            }
+            if(dbQuestion.getCreator().longValue()!=question.getCreator().longValue()){
+                throw new CustomizeException(CustomizeErrorCode.INVALID_OPERATION);
+            }
+            Question updateQuestion=new Question();
+            updateQuestion.setGmtModified(System.currentTimeMillis());
+            updateQuestion.setTitle(question.getTitle());
+            updateQuestion.setDescription(question.getDescription());
+            updateQuestion.setTag(question.getTag());
+            updateQuestion.setId(question.getId());
+//            QuestionExample example =new QuestionExample();
+//            example.createCriteria().andIdEqualTo(question.getId());
+//            int updated =questionMapper.updateByExampleSelective(updateQuestion,example);
+            int updated=questionMapper.updateByPrimaryKeySelective(updateQuestion); // 不通过实例查询，直接通过id更新
+            if (updated!=1){
+                throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+            }
+        }
+
     }
 
     @Override
@@ -101,11 +143,11 @@ public class QuestServiceImpl implements QuestionService {
         Integer offset = page < 1 ? 0 : size * (page - 1);
         questionQueryDTO.setSize(size);
         questionQueryDTO.setPage(offset);
-        List<Question> questions = questionExtMapper.selectBySearch(questionQueryDTO);
-        List<QuestionDTO> questionDTOList = new ArrayList<>();
+        List <Question> questions = questionExtMapper.selectBySearch(questionQueryDTO);
+        List <QuestionDTO> questionDTOList = new ArrayList <>();
 
         for (Question question : questions) {
-            User user = userMapper.selectByPrimaryKey(question.getCreator());
+            User user = userMapper.selectByPrimaryKey(question.getCreator().longValue());
             QuestionDTO questionDTO = new QuestionDTO();
             BeanUtils.copyProperties(question, questionDTO);
             questionDTO.setUser(user);
@@ -113,13 +155,14 @@ public class QuestServiceImpl implements QuestionService {
         }
 
         paginationDTO.setData(questionDTOList);
-        return paginationDTO;    }
+        return paginationDTO;
+    }
 
     @Override
     public List <QuestionDTO> selectRelated(QuestionDTO questionDTO) {
 
         if (StringUtils.isBlank(questionDTO.getTag())) {
-            return new ArrayList<>();
+            return new ArrayList <>();
         }
         String[] tags = StringUtils.split(questionDTO.getTag(), ",");
         String regexpTag = Arrays
@@ -132,8 +175,8 @@ public class QuestServiceImpl implements QuestionService {
         question.setId(questionDTO.getId());
         question.setTag(regexpTag);
 
-        List<Question> questions = questionExtMapper.selectRelated(question);
-        List<QuestionDTO> questionDTOS = questions.stream().map(q -> {
+        List <Question> questions = questionExtMapper.selectRelated(question);
+        List <QuestionDTO> questionDTOS = questions.stream().map(q -> {
             QuestionDTO questionDTO1 = new QuestionDTO();
             BeanUtils.copyProperties(q, questionDTO1);
             return questionDTO1;

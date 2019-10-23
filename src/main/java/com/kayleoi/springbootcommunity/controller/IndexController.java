@@ -2,14 +2,12 @@ package com.kayleoi.springbootcommunity.controller;
 
 import com.kayleoi.springbootcommunity.cache.HotTagCache;
 import com.kayleoi.springbootcommunity.dao.UserMapper;
-import com.kayleoi.springbootcommunity.dto.GithubUser;
 import com.kayleoi.springbootcommunity.dto.PaginationDTO;
 import com.kayleoi.springbootcommunity.model.User;
 import com.kayleoi.springbootcommunity.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -36,6 +34,7 @@ public class IndexController {
     /**
      * 校验token
      * 小用户量的可以用这个
+     *
      * @param request
      * @param response
      * @return
@@ -52,25 +51,24 @@ public class IndexController {
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals("token")) {
                 String token = cookie.getValue();
-                System.out.println("token:"+token);
+                System.out.println("token:" + token);
                 User user = userMapper.findByToken(token);
                 System.out.println(user);
                 if (user != null) {
                     //登录成功 保存session
                     request.getSession().setAttribute("user", user); // 把用户保存到session中
-                    System.out.println("ssssss:"+request.getSession().getAttribute("user"));
+                    System.out.println("ssssss:" + request.getSession().getAttribute("user"));
 
-                }else{
+                } else {
                     request.getSession().setAttribute("user", user); // 把用户保存到session中
-                    System.out.println("sss"+request.getSession().getAttribute("user"));
+                    System.out.println("sss" + request.getSession().getAttribute("user"));
 
                 }
                 break;
             }
         }
-        System.out.println("sss");
         PaginationDTO pagination = questionService.list(search, tag, sort, page, size);
-        List<String> tags = hotTagCache.getHots();
+        List <String> tags = hotTagCache.getHots();
         model.addAttribute("pagination", pagination);
         model.addAttribute("search", search);
         model.addAttribute("tag", tag);
@@ -99,17 +97,16 @@ public class IndexController {
                     //登录成功 保存session
                     request.getSession().setAttribute("user", user); // 把用户保存到session中
                     System.out.println(request.getSession().getAttribute("user"));
-                }else{
+                } else {
                     request.getSession().setAttribute("user", user); // 把用户保存到session中
-                    System.out.println("失败"+request.getSession().getAttribute("user"));
+                    System.out.println("失败" + request.getSession().getAttribute("user"));
 
                 }
                 break;
             }
         }
-        System.out.println("sss");
         PaginationDTO pagination = questionService.list(search, tag, sort, page, size);
-        List<String> tags = hotTagCache.getHots();
+        List <String> tags = hotTagCache.getHots();
         model.addAttribute("pagination", pagination);
         model.addAttribute("search", search);
         model.addAttribute("tag", tag);

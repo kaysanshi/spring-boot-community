@@ -1,6 +1,7 @@
 package com.kayleoi.springbootcommunity.dao;
 
 import com.kayleoi.springbootcommunity.model.Question;
+import com.kayleoi.springbootcommunity.model.QuestionExample;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -13,4 +14,8 @@ public interface QuestionMapper {
     void insert(Question question);
 
     Question selectByPrimaryKey(Long parentId);
+
+    int updateByExampleSelective(Question updateQuestion, QuestionExample example);
+
+    int updateByPrimaryKeySelective(Question updateQuestion);
 }

@@ -43,6 +43,7 @@ public class QuestionController {
         model.addAttribute("question", questionDTO);
         model.addAttribute("comments", comments);
         model.addAttribute("relatedQuestions", relatedQuestions);
+        model.addAttribute("question_user",questionDTO.getUser());
         return "question";
     }
 }

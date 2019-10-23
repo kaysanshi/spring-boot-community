@@ -16,6 +16,11 @@ public interface QuestionExtMapper {
 
     List<Question> selectBySearch(QuestionQueryDTO questionQueryDTO);
 
+    /**
+     * 根据id 和 tag排序
+     * @param question
+     * @return
+     */
     List<Question> selectRelated(Question question);
 
     void incView(Question question);

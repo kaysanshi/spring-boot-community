@@ -26,14 +26,14 @@
                     <label for="description">问题补充 (必填，请参照右侧提示):</label>
                     <textarea name="description" id="description" th:text="${description}" style="display:none;"
                               class="form-control"
-                              cols="30"
-                              rows="10"></textarea>
+                              cols="40"
+                              rows="20"></textarea>
                 </div>
                 <script type="text/javascript">
                     $(function () {
                         var editor = editormd("question-editor", {
                             width: "100%",
-                            height: 350,
+                            height: 450,
                             path: "../static/js/lib/",
                             delay: 0,
                             watch: false,
@@ -99,6 +99,7 @@
             • 问题补充: 详细补充您的问题内容，并确保问题描述清晰直观, 并提供一些相关的资料<br>
             • 选择标签: 选择一个或者多个合适的标签，用逗号隔开，每个标签不超过10个字<br>
         </div>
+        <div th:insert="~{side :: side}"></div>
     </div>
 </div>
 <div th:insert="~{footer :: foot}"></div>
