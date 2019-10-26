@@ -37,10 +37,23 @@
                             path: "../static/js/lib/",
                             delay: 0,
                             watch: false,
+                            emoji: true,
+                            saveHTMLToTextarea:true,
                             placeholder: "请输入问题描述",
                             imageUpload: true,
                             imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-                            imageUploadURL: "/file/upload",
+                            imageUploadURL: "/file/upload"
+                            // /*上传图片成功后可以做一些自己的处理*/
+                            // onload: function () {
+                            //     console.log('onload', this);
+                            //     this.fullscreen();
+                            //     this.unwatch();
+                            //     this.watch().fullscreen();
+                            //     this.width("100%");
+                            //     this.height(480);
+                            //     this.resize("100%", 640);
+                            // },
+
                         });
                     });
                 </script>

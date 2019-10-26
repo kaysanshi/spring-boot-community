@@ -138,7 +138,58 @@ git push -u origin master
     并将sql文件放在下面。
 ### lombok使用
     
-            
+### editmd使用
+    application.properties加入
+    spring.servlet.multipart.max-file-size=128MB
+    spring.servlet.multipart.max-request-size=108MB
+    upload.path.product.img=F:/home/ubuntu/upload/community/
+    加入editormd的文件
+    <div class="form-group" id="question-editor">
+                        <label for="description">问题补充 (必填，请参照右侧提示):</label>
+                        <textarea name="description" id="description" th:text="${description}" style="display:none;"
+                                  class="form-control"
+                                  cols="40"
+                                  rows="20"></textarea>
+                    </div>
+                    <script type="text/javascript">
+                        $(function () {
+                            var editor = editormd("question-editor", {
+                                width: "100%",
+                                height: 450,
+                                path: "../static/js/lib/",
+                                delay: 0,
+                                watch: false,
+                                emoji: true,
+                                saveHTMLToTextarea:true,
+                                placeholder: "请输入问题描述",
+                                imageUpload: true,
+                                imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                                imageUploadURL: "/file/upload"
+                                // /*上传图片成功后可以做一些自己的处理*/
+                                // onload: function () {
+                                //     console.log('onload', this);
+                                //     this.fullscreen();
+                                //     this.unwatch();
+                                //     this.watch().fullscreen();
+                                //     this.width("100%");
+                                //     this.height(480);
+                                //     this.resize("100%", 640);
+                                // },
+    
+                            });
+                        });
+                    </script>
+          这里后台必须返回的格式为json数据
+          @RequestParam(value = "editormd-image-file", required = false) MultipartFile multipartFile
+          返回数据的格式：
+                 1,0必须是数字不可以是字符，
+                 map.put("success", 1); //这里必须是数字返回否则不会回显(字符不能解析前台)
+                 map.put("message", "上传成功");
+                 map.put("url", "http://localhost:" + port + "/pimg/" + newFileName);
+              失败时：
+                map.put("success", 0);
+                map.put("message", "上传失败");
+                map.put("url", "");
 ### idea命令使用
     1.使用alt+鼠标左键进行选择下拉一列
     2.
