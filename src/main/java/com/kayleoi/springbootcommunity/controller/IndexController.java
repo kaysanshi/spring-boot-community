@@ -4,6 +4,8 @@ import com.kayleoi.springbootcommunity.cache.HotTagCache;
 import com.kayleoi.springbootcommunity.dao.UserMapper;
 import com.kayleoi.springbootcommunity.dto.PaginationDTO;
 import com.kayleoi.springbootcommunity.model.User;
+import com.kayleoi.springbootcommunity.model.UserExample;
+import com.kayleoi.springbootcommunity.service.NotificationService;
 import com.kayleoi.springbootcommunity.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -22,7 +25,8 @@ import java.util.List;
  */
 @Controller
 public class IndexController {
-
+    @Autowired
+    private NotificationService notificationService;
     @Autowired
     UserMapper userMapper;
     @Autowired
@@ -56,6 +60,16 @@ public class IndexController {
                 System.out.println(user);
                 if (user != null) {
                     //登录成功 保存session
+                    UserExample userExample = new UserExample();
+                    userExample.createCriteria()
+                            .andTokenEqualTo(token);
+                    List <User> users = userMapper.selectByExample(userExample);
+                    if (users.size() != 0) {
+                        HttpSession session = request.getSession();
+                        session.setAttribute("user", users.get(0));
+                        Long unreadCount = notificationService.unreadCount(users.get(0).getId());
+                        session.setAttribute("unreadCount", unreadCount);
+                    }
                     request.getSession().setAttribute("user", user); // 把用户保存到session中
                     System.out.println("ssssss:" + request.getSession().getAttribute("user"));
 

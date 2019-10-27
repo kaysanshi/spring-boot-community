@@ -20,4 +20,6 @@ public interface QuestionService {
     List<QuestionDTO> selectRelated(QuestionDTO questionDTO);
 
     void incView(Long questionId);
+
+    PaginationDTO list(Long id, Integer page, Integer size);
 }

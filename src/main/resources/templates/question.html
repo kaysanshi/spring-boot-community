@@ -28,7 +28,7 @@
                      th:each="ad : ${#httpServletRequest.getServletContext().getAttribute('HEADER')}">
                     <a th:href="${ad.url}" th:text="${ad.title}" target="_blank"
                        style="color: #A00;font-weight: bold;"></a>
-                    <img src="/images/hot.png"/>
+                    <img src="../static/images/hot.png"/>
                 </div>
 
                 <!--内容-->
@@ -49,7 +49,7 @@
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="width: 100%;"
                      th:if="${#lists.isEmpty(#httpServletRequest.getServletContext().getAttribute('FOOTER'))}">
-                    <!--<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>-->
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                     <script src="../static/js/adsbygoogle.js"></script>
                     <!-- 页尾广告 -->
                     <ins class="adsbygoogle"

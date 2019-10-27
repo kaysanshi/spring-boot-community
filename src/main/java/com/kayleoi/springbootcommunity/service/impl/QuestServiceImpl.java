@@ -10,9 +10,11 @@ import com.kayleoi.springbootcommunity.enums.SortEnum;
 import com.kayleoi.springbootcommunity.exception.CustomizeErrorCode;
 import com.kayleoi.springbootcommunity.exception.CustomizeException;
 import com.kayleoi.springbootcommunity.model.Question;
+import com.kayleoi.springbootcommunity.model.QuestionExample;
 import com.kayleoi.springbootcommunity.model.User;
 import com.kayleoi.springbootcommunity.service.QuestionService;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -190,5 +192,51 @@ public class QuestServiceImpl implements QuestionService {
         question.setId(questionId);
         question.setViewCount(1);
         questionExtMapper.incView(question);
+    }
+
+    @Override
+    public PaginationDTO list(Long userId, Integer page, Integer size) {
+        PaginationDTO paginationDTO = new PaginationDTO();
+
+        Integer totalPage;
+
+        QuestionExample questionExample = new QuestionExample();
+        questionExample.createCriteria()
+                .andCreatorEqualTo(userId);
+        Integer totalCount = Integer.valueOf((questionMapper.countByExample(questionExample)).toString());
+
+        if (totalCount % size == 0) {
+            totalPage = totalCount / size;
+        } else {
+            totalPage = totalCount / size + 1;
+        }
+
+        if (page < 1) {
+            page = 1;
+        }
+        if (page > totalPage) {
+            page = totalPage;
+        }
+
+        paginationDTO.setPagination(totalPage, page);
+
+        //size*(page-1)
+        Integer offset = size * (page - 1);
+        QuestionExample example = new QuestionExample();
+        example.createCriteria()
+                .andCreatorEqualTo(userId);
+        List<Question> questions = questionMapper.selectByExampleWithRowbounds(example, new RowBounds(offset, size));
+        List<QuestionDTO> questionDTOList = new ArrayList<>();
+
+        for (Question question : questions) {
+            User user = userMapper.selectByPrimaryKey(question.getCreator());
+            QuestionDTO questionDTO = new QuestionDTO();
+            BeanUtils.copyProperties(question, questionDTO);
+            questionDTO.setUser(user);
+            questionDTOList.add(questionDTO);
+        }
+
+        paginationDTO.setData(questionDTOList);
+        return paginationDTO;
     }
 }

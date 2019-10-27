@@ -2,8 +2,8 @@ package com.kayleoi.springbootcommunity.controller;
 
 import com.kayleoi.springbootcommunity.dto.CommentCreateDTO;
 import com.kayleoi.springbootcommunity.dto.CommentDTO;
-import com.kayleoi.springbootcommunity.enums.CommentTypeEnum;
 import com.kayleoi.springbootcommunity.dto.ResultDTO;
+import com.kayleoi.springbootcommunity.enums.CommentTypeEnum;
 import com.kayleoi.springbootcommunity.exception.CustomizeErrorCode;
 import com.kayleoi.springbootcommunity.model.Comment;
 import com.kayleoi.springbootcommunity.model.User;
@@ -25,6 +25,12 @@ public class CommentController {
     @Autowired
     private CommentService commentService;
 
+    /**
+     * 評論
+     * @param commentCreateDTO
+     * @param request
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/comment", method = RequestMethod.POST)
     public Object post(@RequestBody CommentCreateDTO commentCreateDTO,
