@@ -1,12 +1,12 @@
 package com.kayleoi.springbootcommunity.intercept;
 
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 @Component
 public class MyInterception implements HandlerInterceptor {
 
@@ -53,7 +53,7 @@ public class MyInterception implements HandlerInterceptor {
 			throws Exception {
 		// TODO Auto-generated method stub
 //		System.out.println(logService);
-		
+
 		System.out.println("拦截器：" + request.getRequestURI());
 		//访问记录
 		//截取html访问请求
@@ -61,8 +61,8 @@ public class MyInterception implements HandlerInterceptor {
 		if (loguri.endsWith(".html")) {
 			System.out.println("request = [" + request + "], response = [" + response + "], handler = [" + handler + "]");
 		}
-		
+
 		return HandlerInterceptor.super.preHandle(request, response, handler);
 	}
-	
+
 }

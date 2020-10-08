@@ -15,7 +15,7 @@ import java.util.List;
 public interface UserMapper {
     //@Insert("insert into user(name,account_id,token,gmt_create,gmt_modify,bio,avatar_url) values(#{name},#{account_id},#{token},#{gmt_create},#{gmt_modify}, #{bio},#{avatarUrl})")
     public void insert(User user);
-    @Select("select * from user where token=#{token}")
+    @Select("select * from usermata where token=#{token}")
     User findByToken(String token);
    // @Select("select * from user where Id=#{creator}")
     User selectByPrimaryKey(Long creator);

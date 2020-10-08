@@ -4,7 +4,6 @@ import com.kayleoi.springbootcommunity.intercept.MyInterception;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -45,7 +44,7 @@ public class MyWebMvcConfigurerAdapter extends WebMvcConfigurationSupport {
     }
 
     /**
-     * 配置静态资源。避免静态资源被拦截 ,方行的资源目录
+     * 配置静态资源。避免静态资源被拦截 ,放行的资源目录
      * 配置完这些将不被拦截
      * @param registry
      */
