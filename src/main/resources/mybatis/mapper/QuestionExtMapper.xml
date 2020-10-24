@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.kayleoi.springbootcommunity.dao.QuestionExtMapper">
-    <resultMap id="BaseResultMap" type="com.kayleoi.springbootcommunity.model.Question">
+<mapper namespace="com.kaysanshi.springbootcommunity.dao.QuestionExtMapper">
+    <resultMap id="BaseResultMap" type="com.kaysanshi.springbootcommunity.model.Question">
         <id column="ID" jdbcType="INTEGER" property="id"/>
         <result column="TITLE" jdbcType="VARCHAR" property="title"/>
         <result column="GMT_CREATE" jdbcType="BIGINT" property="gmtCreate"/>
@@ -13,20 +13,20 @@
         <result column="TAG" jdbcType="VARCHAR" property="tag"/>
     </resultMap>
 
-    <update id="incView" parameterType="com.kayleoi.springbootcommunity.model.Question">
+    <update id="incView" parameterType="com.kaysanshi.springbootcommunity.model.Question">
     update QUESTION
     set VIEW_COUNT = VIEW_COUNT+#{viewCount}
     where id = #{id}
     </update>
 
-    <update id="incCommentCount" parameterType="com.kayleoi.springbootcommunity.model.Question">
+    <update id="incCommentCount" parameterType="com.kaysanshi.springbootcommunity.model.Question">
     update QUESTION
     set
     COMMENT_COUNT = COMMENT_COUNT + #{commentCount,jdbcType=INTEGER}
     where id = #{id}
     </update>
 
-    <select id="selectRelated" parameterType="com.kayleoi.springbootcommunity.model.Question" resultMap="BaseResultMap">
+    <select id="selectRelated" parameterType="com.kaysanshi.springbootcommunity.model.Question" resultMap="BaseResultMap">
         select * from QUESTION
         <where>
             <if test="id != null">
@@ -39,7 +39,7 @@
         order by gmt_create desc limit 20
     </select>
 
-    <select id="countBySearch" parameterType="com.kayleoi.springbootcommunity.dto.QuestionQueryDTO"
+    <select id="countBySearch" parameterType="com.kaysanshi.springbootcommunity.dto.QuestionQueryDTO"
             resultType="java.lang.Integer">
         select count(*) from QUESTION
         <where>
@@ -58,7 +58,7 @@
         </where>
     </select>
 
-    <select id="selectBySearch" parameterType="com.kayleoi.springbootcommunity.dto.QuestionQueryDTO"
+    <select id="selectBySearch" parameterType="com.kaysanshi.springbootcommunity.dto.QuestionQueryDTO"
             resultMap="BaseResultMap">
         select * from QUESTION
         <where>

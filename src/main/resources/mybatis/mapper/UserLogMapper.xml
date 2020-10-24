@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.kayleoi.springbootcommunity.dao.UserLogMapper">
+<mapper namespace="com.kaysanshi.springbootcommunity.dao.UserLogMapper">
 
-    <insert id="insert" parameterType="com.kayleoi.springbootcommunity.dto.UserLogDTO">
+    <insert id="insert" parameterType="com.kaysanshi.springbootcommunity.dto.UserLogDTO">
         insert into USER_LOG (userid, ip,
         question_title, question_content, question_tag,
         question_create_time, login_time)
         values (#{userId},#{ip},#{questionTitle},#{questionContent},#{questionTag},#{questionCreateTime},#{loginTime})
     </insert>
-    <update id="updateById" parameterType="com.kayleoi.springbootcommunity.dto.UserLogDTO">
+    <update id="updateById" parameterType="com.kaysanshi.springbootcommunity.dto.UserLogDTO">
         update user_log
         <set>
             question_title=#{questionTitle},
